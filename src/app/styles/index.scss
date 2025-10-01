@@ -1,6 +1,6 @@
-@use "styles/variables/global";
-@use "styles/themes/dark";
-@use "styles/themes/light";
+@use "./variables/global";
+@use "./themes/dark";
+@use "./themes/light";
 
 * {
   margin: 0;
