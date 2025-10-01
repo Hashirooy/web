@@ -1,0 +1,18 @@
+.navbar {
+  width: 100%;
+  height: var(--navbar-height);
+  background-color: var(--inverted-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mainLink {
+  margin-right: 15px;
+}
+
+.links {
+  margin-left: auto;
+}

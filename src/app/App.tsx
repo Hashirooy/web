@@ -11,15 +11,22 @@ import { AboutPage } from "pages/AboutPage";
 import { MainPage } from "pages/MainPage";
 import { classNames } from "shared/lib/helpers/classNames/classNames";
 import { AppRouter } from "app/provider/router";
+import { Navbar } from "widgets/Navbar";
+import { SideBar } from "widgets/SideBar";
+import { useTranslation } from "react-i18next";
 
 export const App = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   return (
     <div className={classNames("app", {}, [theme])}>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      <Link to={"/"}>Main</Link>
-      <Link to={"/about"}>About</Link>
-      <AppRouter />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar />
+
+        <div className="content-page">
+          <SideBar />
+          <AppRouter />
+        </div>
+      </Suspense>
     </div>
   );
 };
