@@ -1,33 +1,27 @@
-import { Route, Routes } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
 
-import "./styles/index.scss";
-
-import { Link } from "react-router-dom";
-
-import { Suspense, useContext, useState } from "react";
-
-import { useTheme } from "./provider/ThemeProvider";
-import { AboutPage } from "pages/AboutPage";
-import { MainPage } from "pages/MainPage";
-import { classNames } from "shared/lib/helpers/classNames/classNames";
-import { AppRouter } from "app/provider/router";
+import { classNames } from "shared/lib/classNames/classNames";
+import { useTheme } from "app/providers/ThemeProvider";
+import { AppRouter } from "app/providers/router";
 import { Navbar } from "widgets/Navbar";
-import { SideBar } from "widgets/SideBar";
-import { useTranslation } from "react-i18next";
-import { PageLoader } from "shared/ui/PageLoader/PageLoader";
+import { Sidebar } from "widgets/Sidebar";
 
-export const App = () => {
+function App() {
   const { theme } = useTheme();
+  const [isOpen, setisOpen] = useState(false);
+
   return (
     <div className={classNames("app", {}, [theme])}>
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback="">
         <Navbar />
-
+        <button onClick={() => setisOpen(true)}>Open Modal</button>
         <div className="content-page">
-          <SideBar />
+          <Sidebar />
           <AppRouter />
         </div>
       </Suspense>
     </div>
   );
-};
+}
+
+export default App;

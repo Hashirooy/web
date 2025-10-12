@@ -1,10 +1,14 @@
-/** @type { import('@storybook/react-webpack5').StorybookConfig } */
-const config = {
-  stories: ["../../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-webpack5-compiler-swc", "@storybook/addon-docs"],
-  framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
-  },
+module.exports = {
+    stories: [
+        '../../src/**/*.stories.@(js|jsx|ts|tsx)',
+    ],
+    addons: [
+        '@storybook/addon-links',
+        '@storybook/addon-essentials',
+        '@storybook/addon-interactions',
+    ],
+    framework: '@storybook/react',
+    core: {
+        builder: 'webpack5',
+    },
 };
-export default config;

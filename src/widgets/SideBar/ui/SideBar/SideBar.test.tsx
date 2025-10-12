@@ -1,21 +1,21 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import React from "react";
-import { withTranslation } from "react-i18next";
-import { SideBar } from "widgets/SideBar/ui/SideBar/SideBar";
-import { renderWithTranslation } from "shared/lib/tests/renderWithTranslation/renderWithTranslation";
+import { fireEvent, screen } from '@testing-library/react';
+import { Sidebar } from 'widgets/Sidebar/ui/Sidebar/Sidebar';
+import {
+    renderWithTranslation,
+} from 'shared/lib/tests/renderWithTranslation/renderWithTranslation';
+import { componentRender } from 'shared/lib/tests/componentRender/componentRender';
 
-describe("SideBar", () => {
-  test("test render", () => {
-    const SideBarWithTransalation = withTranslation()(SideBar);
-    renderWithTranslation(<SideBarWithTransalation />);
-    expect(screen.getByTestId("side-bar")).toBeInTheDocument();
-  });
+describe('Sidebar', () => {
+    test('with only first param', () => {
+        componentRender(<Sidebar />);
+        expect(screen.getByTestId('sidebar')).toBeInTheDocument();
+    });
 
-  test("test render toggle", () => {
-    renderWithTranslation(<SideBar />);
-    const toggleButton = screen.getByTestId("side-bar-toggleId");
-    expect(screen.getByTestId("side-bar-toggleId")).toBeInTheDocument();
-    fireEvent.click(toggleButton);
-    expect(screen.getByTestId("side-bar")).toHaveClass("collapsed");
-  });
+    test('test toggle', () => {
+        componentRender(<Sidebar />);
+        const toggleBtn = screen.getByTestId('sidebar-toggle');
+        expect(screen.getByTestId('sidebar')).toBeInTheDocument();
+        fireEvent.click(toggleBtn);
+        expect(screen.getByTestId('sidebar')).toHaveClass('collapsed');
+    });
 });

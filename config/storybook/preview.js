@@ -1,24 +1,19 @@
-import { StyleDecorator } from "shared/config/storybook/styleDecorator/styleDecorator";
-import { ThemeDecorator } from "shared/config/storybook/themeDecorator/themeDecorator";
-import { RouterDecorator } from "shared/config/storybook/routerDecarator/routerDecorator";
-import { Theme } from "app/provider/ThemeProvider";
+import { addDecorator } from '@storybook/react';
+import { StyleDecorator } from '../../src/shared/config/storybook/StyleDecorator/StyleDecorator';
+import { ThemeDecorator } from '../../src/shared/config/storybook/ThemeDecorator/ThemeDecorator';
+import { Theme } from '../../src/app/providers/ThemeProvider';
+import { RouterDecorator } from '../../src/shared/config/storybook/RouterDecorator/RouterDecorator';
 
-/** @type { import('@storybook/react-webpack5').Preview } */
-const preview = {
-  parameters: {
+export const parameters = {
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+        matchers: {
+            color: /(background|color)$/i,
+            date: /Date$/,
+        },
     },
-  },
 };
 
-export default preview;
-
-export const decorators = [
-  StyleDecorator,
-  ThemeDecorator(Theme.LIGHT),
-  RouterDecorator,
-];
+addDecorator(StyleDecorator);
+addDecorator(ThemeDecorator(Theme.LIGHT));
+addDecorator(RouterDecorator);

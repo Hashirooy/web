@@ -1,18 +1,16 @@
-@use "./variables/global";
-@use "./themes/dark";
-@use "./themes/light";
+@import "reset";
+@import "variables/global";
+@import "themes/normal";
+@import "themes/dark";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body {
+  font: var(--font-m);
+  color: var(--primary-color);
 }
 
 .app {
-  font: var(--font-m);
-  background: var(--bg-color);
-  color: var(--primary-color);
   min-height: 100vh;
+  background: var(--bg-color);
 }
 
 .content-page {
