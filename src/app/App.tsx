@@ -11,7 +11,7 @@ function App() {
   const [isOpen, setisOpen] = useState(false);
 
   return (
-    <div className={classNames("app", {}, [theme])}>
+    <div className={classNames("app", {}, [])}>
       <Suspense fallback="">
         <Navbar />
         <button onClick={() => setisOpen(true)}>Open Modal</button>
