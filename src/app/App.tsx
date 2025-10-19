@@ -5,11 +5,16 @@ import { useTheme } from "app/providers/ThemeProvider";
 import { AppRouter } from "app/providers/router";
 import { Navbar } from "widgets/Navbar";
 import { Sidebar } from "widgets/Sidebar";
+import { useDispatch } from "react-redux";
+import { userActions } from "./entities/User";
 
 function App() {
   const { theme } = useTheme();
   const [isOpen, setisOpen] = useState(false);
-
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(userActions.initAuthData())
+  }, [])
   return (
     <div className={classNames("app", {}, [])}>
       <Suspense fallback="">
