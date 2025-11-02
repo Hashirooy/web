@@ -10,7 +10,7 @@ import { getUserAuthData, userActions } from 'entities/User';
 function App() {
     const { theme } = useTheme();
     const dispatch = useDispatch();
- 
+    const mounted = useSelector(getUserAuthData);
     useEffect(() => {
         dispatch(userActions.initAuthData());
     }, [dispatch]);
@@ -21,7 +21,7 @@ function App() {
                 <Navbar />
                 <div className="content-page">
                     <Sidebar />
-                    <AppRouter />
+                    {mounted && <AppRouter />}
                 </div>
             </Suspense>
         </div>

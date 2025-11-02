@@ -1,7 +1,7 @@
 export {
     getUserAuthData,
 } from './model/selectors/getUserAuthData/getUserAuthData';
-
+export {getuserMounted} from './model/selectors/getUserMounted/getuserMaunted';
 export {
     userReducer,
     userActions,
