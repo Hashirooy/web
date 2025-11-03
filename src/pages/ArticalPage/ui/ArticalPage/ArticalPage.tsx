@@ -1,8 +1,9 @@
 import { memo } from "react";
+import cls from "./ArticalPage.module.scss"
 
 const ArticalPage = () => {
     return (
-        <div>Artical Page</div>
+        <div className={cls.ArticalPage}>Artical Page</div>
     );
 }
 export default memo(ArticalPage);
