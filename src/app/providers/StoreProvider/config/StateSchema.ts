@@ -9,6 +9,8 @@ import { To } from "history";
 import { NavigateOptions } from "react-router";
 import { AppDispatch } from "app/providers/StoreProvider";
 import { ArticalDetailsSchema } from "entities/Articale";
+import { ArticleDetailsCommentsSchema } from "pages/ArticalDetailsPage";
+
 
 export interface StateSchema {
   counter: CounterSchema;
@@ -18,6 +20,8 @@ export interface StateSchema {
   loginForm?: LoginSchema;
   profile?: ProfileSchema;
   articalDetails?: ArticalDetailsSchema;
+  articleDetailsComments?: ArticleDetailsCommentsSchema
+
 }
 
 export type StateSchemaKey = keyof StateSchema;
