@@ -8,6 +8,9 @@ import { getProfileReadonly, profileActions, updateProfileData } from "entities/
 import { useSelector } from "react-redux"
 import { useCallback } from "react"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch"
+import { getUserAuthData } from "entities/User"
+import { getProfileData } from "entities/Profile/model/selectors/getProfileData/getProfileData"
+import { useParams } from "react-router-dom"
 
 
 export interface ProfilePageHeaderProps{
@@ -17,19 +20,24 @@ export const ProfilePageHeader = ({className}:ProfilePageHeaderProps)=>{
     const { t } = useTranslation('profile');
     const readonly = useSelector(getProfileReadonly)
     const dispatch = useAppDispatch()
+    const {id} = useParams<{id:string}>()
     const onEdit = useCallback(()=>{
         dispatch(profileActions.setReadonly(false))
     },[dispatch])
       const onCanselEdit = useCallback(()=>{
         dispatch(profileActions.canselEdit())
     },[dispatch])
-
+    const auth = useSelector(getUserAuthData)
+    const profile = useSelector(getProfileData)
+    const canEdith = auth?.id === profile?.id
     const onSave = useCallback(()=>{
         dispatch(updateProfileData())
     },[])
     return(<div className={classNames(cls.profilepageheader,{},[className])}>
           <Text title={t('Профиль')} />
-                { readonly ? (<Button
+          {canEdith &&(
+            <div className={cls.buttons}>
+                           { readonly ? (<Button
                     className={cls.editBtn}
                     theme={ButtonTheme.OUTLINE}
                     onClick={onEdit}
@@ -52,5 +60,8 @@ export const ProfilePageHeader = ({className}:ProfilePageHeaderProps)=>{
                 </Button>
                 </>)
                 }
+            </div>
+          )}
+     
     </div>)
 }

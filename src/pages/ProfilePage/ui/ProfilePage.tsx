@@ -13,6 +13,7 @@ import { Currency } from 'entities/Currency/types/currency';
 import { Country } from 'entities/Country';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { Theme } from 'app/providers/ThemeProvider';
+import { useParams } from 'react-router-dom';
 
 
 const reducers: ReducersList = {
@@ -31,8 +32,11 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     const error = useSelector(getProfileError);
     const readonly = useSelector(getProfileReadonly);
     const errors = useSelector(getProfileValidateErrors)
+    const {id} = useParams<{id:string}>()
     useEffect(() => {
-        dispatch(fetchProfileData());
+        if (id){
+            dispatch(fetchProfileData(id));
+        }
     }, [dispatch]);
     const onChangeFirstname = useCallback((value?:string)=>{
         dispatch(profileActions.updateProfile({first:value||""}))

@@ -10,17 +10,20 @@ import { NavigateOptions } from "react-router";
 import { AppDispatch } from "app/providers/StoreProvider";
 import { ArticalDetailsSchema } from "entities/Articale";
 import { ArticleDetailsCommentsSchema } from "pages/ArticalDetailsPage";
+import { AddCommentFormSchema } from "features/addNewComment";
 
 
 export interface StateSchema {
   counter: CounterSchema;
   user: UserSchema;
 
+
   // Асинхронные редюсеры
   loginForm?: LoginSchema;
   profile?: ProfileSchema;
   articalDetails?: ArticalDetailsSchema;
   articleDetailsComments?: ArticleDetailsCommentsSchema
+  addCommentForm?:AddCommentFormSchema
 
 }
 
