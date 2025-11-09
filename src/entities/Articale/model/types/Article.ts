@@ -1,3 +1,4 @@
+import { User } from "entities/User";
 
 
 export interface ArticleBlockBase {
@@ -38,6 +39,13 @@ export interface Article {
     img: string;
     views: number;
     createdAt: string;
+    user: User;
     type: ArticleBlockType[];
     blocks: ArticleBlock[];
+    userId: string;
+}
+
+export enum ArticleView {
+    LIST = 'LIST',
+    TILE = 'TILE',
 }
