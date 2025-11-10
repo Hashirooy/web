@@ -7,10 +7,10 @@ interface ArticalListProps {
     articles: Article[];
     className?: string;
     isLoading?: boolean;
-    view?: ArticleView;
+    view: ArticleView;
 }
 export const ArticalList = (props: ArticalListProps) => {
-    const { className, articles, isLoading, view = ArticleView.TILE } = props;
+    const { className, articles, isLoading, view} = props;
 
     if(isLoading){
         return (

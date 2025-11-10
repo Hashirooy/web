@@ -79,11 +79,11 @@ export const ArticalDetail = memo((props:ArticalDetailsProps) => {
             </div>
             <Text title={artical?.title} size={TextSize.l} text={artical?.subtitle} className={cls.title} />
             <div className={cls.articalInfo}>
-                <Icon Svg={EyeIcon} classname={cls.icons}/>
+                <Icon Svg={EyeIcon} className={cls.icons}/>
                 <Text text={String(artical?.views)}/>
             </div>
               <div className={cls.articalInfo}>
-                <Icon Svg={CalendarIcon} classname={cls.icons}/>
+                <Icon Svg={CalendarIcon} className={cls.icons}/>
                 <Text text={artical?.createdAt}/>
             </div>
             {artical?.blocks.map(renderBlock)}

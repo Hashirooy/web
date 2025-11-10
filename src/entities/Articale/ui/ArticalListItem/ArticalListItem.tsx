@@ -65,7 +65,7 @@ export const ArticalListItem = (props: ArticalListItemProps) => {
                     <div className={cls.infoWrapper}>
                         <Text className={cls.types} text={article.type.join(', ')}/>
                         <Text className={cls.views} text={String(article.views)}/>
-                        <Icon Svg={EyeIcon} classname={cls.icons}/>
+                        <Icon Svg={EyeIcon} className={cls.icons}/>
                     </div>
                     <Text title={article.title} className={cls.title}/>
                 </div>

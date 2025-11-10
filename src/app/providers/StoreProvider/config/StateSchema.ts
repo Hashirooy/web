@@ -11,6 +11,7 @@ import { AppDispatch } from "app/providers/StoreProvider";
 import { ArticalDetailsSchema } from "entities/Articale";
 import { ArticleDetailsCommentsSchema } from "pages/ArticalDetailsPage";
 import { AddCommentFormSchema } from "features/addNewComment";
+import { ArticalPageSchema } from "pages/ArticalPage/model/types/ArticalPageSchema";
 
 
 export interface StateSchema {
@@ -22,8 +23,9 @@ export interface StateSchema {
   loginForm?: LoginSchema;
   profile?: ProfileSchema;
   articalDetails?: ArticalDetailsSchema;
-  articleDetailsComments?: ArticleDetailsCommentsSchema
-  addCommentForm?:AddCommentFormSchema
+  articleDetailsComments?: ArticleDetailsCommentsSchema;
+  addCommentForm?:AddCommentFormSchema;
+  articlesPage?:ArticalPageSchema;
 
 }
 

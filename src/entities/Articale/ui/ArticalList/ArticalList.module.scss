@@ -1,23 +1,15 @@
-.articalList{
-
-
-
-
-
-.LIST{
-    .card{
-        margin-right: 0;
+.LIST {
+    .card {
         margin-bottom: 30px;
     }
 }
 
-
-.TILE{
+.TILE {
     display: flex;
     flex-wrap: wrap;
-    .card{
+
+    .card {
         margin-right: 30px;
         margin-bottom: 30px;
     }
-}
 }
