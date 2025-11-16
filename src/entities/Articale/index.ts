@@ -1,7 +1,0 @@
-export {ArticalDetail} from "./ui/ArticalDetail/ArticalDetail"
-export type {Article} from "./model/types/Article"
-export type {ArticalDetailsSchema} from "./model/types/ArticalDetailsSchema"
-export {ArticalDetailsReducer, ArticalDetailsActions} from "./model/slice/ArticalDetailsSlice"
-export {getArticleSelectorData, getArticleSelectorErorr, getArticleSelectorIsloading} from "./model/selectors/getArticleSelector"
-export {ArticleView} from "./model/types/Article"
-export {ArticleViewSelector} from "./ui/ArticalViewSelectors/ArticalViewSelectors"

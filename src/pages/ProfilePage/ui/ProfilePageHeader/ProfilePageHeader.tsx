@@ -1,67 +1,79 @@
-import { classNames } from "shared/lib/classNames/classNames"
-import cls from "./ProfilePageHeader.module.scss"
-import { Button, ButtonTheme } from "shared/ui/Button/Button"
-import {Text} from "shared/ui/Text/Text"
+import { classNames } from 'shared/lib/classNames/classNames';
+import { Text } from 'shared/ui/Text/Text';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    getProfileData, getProfileReadonly, profileActions, updateProfileData,
+} from 'entities/Profile';
+import { useCallback } from 'react';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getUserAuthData } from 'entities/User';
+import cls from './ProfilePageHeader.module.scss';
 
-import { useTranslation } from "react-i18next"
-import { getProfileReadonly, profileActions, updateProfileData } from "entities/Profile"
-import { useSelector } from "react-redux"
-import { useCallback } from "react"
-import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch"
-import { getUserAuthData } from "entities/User"
-import { getProfileData } from "entities/Profile/model/selectors/getProfileData/getProfileData"
-import { useParams } from "react-router-dom"
-
-
-export interface ProfilePageHeaderProps{
-    className?:string
+interface ProfilePageHeaderProps {
+    className?: string;
 }
-export const ProfilePageHeader = ({className}:ProfilePageHeaderProps)=>{
+
+export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
+    const {
+        className,
+    } = props;
+
     const { t } = useTranslation('profile');
-    const readonly = useSelector(getProfileReadonly)
-    const dispatch = useAppDispatch()
-    const {id} = useParams<{id:string}>()
-    const onEdit = useCallback(()=>{
-        dispatch(profileActions.setReadonly(false))
-    },[dispatch])
-      const onCanselEdit = useCallback(()=>{
-        dispatch(profileActions.canselEdit())
-    },[dispatch])
-    const auth = useSelector(getUserAuthData)
-    const profile = useSelector(getProfileData)
-    const canEdith = auth?.id === profile?.id
-    const onSave = useCallback(()=>{
-        dispatch(updateProfileData())
-    },[])
-    return(<div className={classNames(cls.profilepageheader,{},[className])}>
-          <Text title={t('Профиль')} />
-          {canEdith &&(
-            <div className={cls.buttons}>
-                           { readonly ? (<Button
-                    className={cls.editBtn}
-                    theme={ButtonTheme.OUTLINE}
-                    onClick={onEdit}
-                >
-                    {t('Редактировать')}
-                </Button>)
-                :
-                (<>
-                <Button className={cls.editBtn}
-                    theme={ButtonTheme.OUTLINE_RED}
-                    onClick={onCanselEdit}>
-                        
-                        {t('Отменить')}
-                </Button>
-                  <Button className={cls.saveBtn}
-                    theme={ButtonTheme.OUTLINE}
-                    onClick={onSave}>
-                        
-                        {t('Сохранить')}
-                </Button>
-                </>)
-                }
-            </div>
-          )}
-     
-    </div>)
-}
+    const authData = useSelector(getUserAuthData);
+    const profileData = useSelector(getProfileData);
+    const canEdit = authData?.id === profileData?.id;
+    const readonly = useSelector(getProfileReadonly);
+    const dispatch = useAppDispatch();
+
+    const onEdit = useCallback(() => {
+        dispatch(profileActions.setReadonly(false));
+    }, [dispatch]);
+
+    const onCancelEdit = useCallback(() => {
+        dispatch(profileActions.cancelEdit());
+    }, [dispatch]);
+
+    const onSave = useCallback(() => {
+        dispatch(updateProfileData());
+    }, [dispatch]);
+
+    return (
+        <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
+            <Text title={t('Профиль')} />
+            {canEdit && (
+                <div className={cls.btnsWrapper}>
+                    {readonly
+                        ? (
+                            <Button
+                                className={cls.editBtn}
+                                theme={ButtonTheme.OUTLINE}
+                                onClick={onEdit}
+                            >
+                                {t('Редактировать')}
+                            </Button>
+                        )
+                        : (
+                            <>
+                                <Button
+                                    className={cls.editBtn}
+                                    theme={ButtonTheme.OUTLINE_RED}
+                                    onClick={onCancelEdit}
+                                >
+                                    {t('Отменить')}
+                                </Button>
+                                <Button
+                                    className={cls.saveBtn}
+                                    theme={ButtonTheme.OUTLINE}
+                                    onClick={onSave}
+                                >
+                                    {t('Сохранить')}
+                                </Button>
+                            </>
+                        )}
+                </div>
+            )}
+        </div>
+    );
+};

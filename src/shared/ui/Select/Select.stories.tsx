@@ -1,9 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Modal } from 'shared/ui/Modal/Modal';
-import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
-import { Theme } from 'app/providers/ThemeProvider';
-import { Select } from './Select';
+import { Select } from 'shared/ui/Select/Select';
 
 export default {
     title: 'shared/Select',
@@ -17,10 +14,9 @@ const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  label:"test",
-  options:[
-    {value:"test1", content:"test1"}
-  ]
+    label: 'Укажите значение',
+    options: [
+        { value: '123', content: 'Первый пункт' },
+        { value: '1234', content: 'Второй пункт' },
+    ],
 };
-
-

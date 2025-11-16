@@ -1,3 +1,0 @@
-import { StateSchema } from "app/providers/StoreProvider";
-
-export const getArticleIsLoading = (state:StateSchema) => state.articlesPage?.isLoading || false;
