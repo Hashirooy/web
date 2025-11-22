@@ -3,16 +3,16 @@ import { memo, ReactNode, useCallback } from 'react';
 import { Card, CardTheme } from 'shared/ui/Card/Card';
 import cls from './Tabs.module.scss';
 
-export interface tabItem {
+export interface TabItem {
     value: string;
     content: ReactNode;
 }
 
 interface TabsProps {
     className?: string;
-    tabs: tabItem[];
+    tabs: TabItem[];
     value: string;
-    onTabClick: (tab: tabItem) => void;
+    onTabClick: (tab: TabItem) => void;
 }
 
 export const Tabs = memo((props: TabsProps) => {
@@ -20,7 +20,7 @@ export const Tabs = memo((props: TabsProps) => {
         className, tabs, onTabClick, value,
     } = props;
 
-    const clickHandle = useCallback((tab: tabItem) => () => {
+    const clickHandle = useCallback((tab: TabItem) => () => {
         onTabClick(tab);
     }, [onTabClick]);
 
@@ -28,7 +28,7 @@ export const Tabs = memo((props: TabsProps) => {
         <div className={classNames(cls.Tabs, {}, [className])}>
             {tabs.map((tab) => (
                 <Card
-                    theme={tab.value === value ? CardTheme.NORMAL : CardTheme.OUTLINE}
+                    theme={tab.value === value ? CardTheme.NORMAL : CardTheme.OUTLINED}
                     className={cls.tab}
                     key={tab.value}
                     onClick={clickHandle(tab)}

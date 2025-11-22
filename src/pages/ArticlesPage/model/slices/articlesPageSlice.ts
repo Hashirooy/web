@@ -1,11 +1,12 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
-import { Article, ArticleView } from 'entities/Article';
-import { ArticlesPageSchema } from 'pages/ArticlesPage';
+import {
+    Article, ArticleType, ArticleView, ArticleSortField,
+} from 'entities/Article';
 import { ARTICLES_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
-import { ArticleSortField, ArticleType } from 'entities/Article/model/types/article';
 import { SortOrder } from 'shared/types';
+import { ArticlesPageSchema } from '../types/articlesPageSchema';
+import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 
 const articlesAdapter = createEntityAdapter<Article>({
     selectId: (article) => article.id,
@@ -26,10 +27,10 @@ const articlesPageSlice = createSlice({
         page: 1,
         hasMore: true,
         _inited: false,
-        order: 'asc',
-        sort: ArticleSortField.CREATED_AT,
-        search: '',
         limit: 9,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
         type: ArticleType.ALL,
     }),
     reducers: {
@@ -40,32 +41,32 @@ const articlesPageSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
-        initState: (state) => {
-            const view = localStorage.getItem(ARTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView;
-            state.view = view;
-            state.limit = view === ArticleView.BIG ? 4 : 9;
-            state._inited = true;
-        },
-
         setOrder: (state, action: PayloadAction<SortOrder>) => {
             state.order = action.payload;
         },
         setSort: (state, action: PayloadAction<ArticleSortField>) => {
             state.sort = action.payload;
         },
+        setType: (state, action: PayloadAction<ArticleType>) => {
+            state.type = action.payload;
+        },
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
         },
-        setType: (state, action: PayloadAction<ArticleType>) => {
-            state.type = action.payload;
+        initState: (state) => {
+            const view = localStorage.getItem(ARTICLES_VIEW_LOCALSTORAGE_KEY) as ArticleView;
+            state.view = view;
+            state.limit = view === ArticleView.BIG ? 4 : 9;
+            state._inited = true;
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchArticlesList.pending, (state, action   ) => {
+            .addCase(fetchArticlesList.pending, (state, action) => {
                 state.error = undefined;
                 state.isLoading = true;
-                if(action.meta.arg.replace) {
+
+                if (action.meta.arg.replace) {
                     articlesAdapter.removeAll(state);
                 }
             })
@@ -74,9 +75,7 @@ const articlesPageSlice = createSlice({
                 action,
             ) => {
                 state.isLoading = false;
-                state.hasMore = state.limit !== undefined
-                    ? action.payload.length >= state.limit
-                    : action.payload.length > 0;
+                state.hasMore = action.payload.length >= state.limit;
 
                 if (action.meta.arg.replace) {
                     articlesAdapter.setAll(state, action.payload);

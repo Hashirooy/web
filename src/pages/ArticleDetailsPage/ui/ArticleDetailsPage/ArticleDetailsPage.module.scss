@@ -6,9 +6,9 @@
     margin-top: 20px;
 }
 
-.recommendationsList{
-    margin-top: 30px;
-    flex-wrap: wrap;
+.recommendations {
+    margin-top: 20px;
+    flex-wrap: nowrap;
     overflow-y: hidden;
     overflow-x: auto;
 }

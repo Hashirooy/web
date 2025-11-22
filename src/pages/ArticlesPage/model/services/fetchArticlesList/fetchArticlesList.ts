@@ -1,13 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Comment } from 'entities/Comment';
-import { Article } from 'entities/Article';
-import { getArticlesPageLimit, getArticlesPageNum, getArticlesPageOrder, getArticlesPageSearch, getArticlesPageSort, getArticlesPageType } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
-import { useSelector } from 'react-redux';
+import { Article, ArticleType } from 'entities/Article';
 import { addQueryParams } from 'shared/lib/url/addQueryParams/addQueryParams';
-import { ArticleType } from 'entities/Article/model/types/article';
+import {
+    getArticlesPageLimit,
+    getArticlesPageNum,
+    getArticlesPageOrder,
+    getArticlesPageSearch,
+    getArticlesPageSort,
+    getArticlesPageType,
+} from '../../selectors/articlesPageSelectors';
 
- interface FetchArticlesListProps {
+interface FetchArticlesListProps {
     replace?: boolean;
 }
 
@@ -19,20 +23,16 @@ export const fetchArticlesList = createAsyncThunk<
         'articlesPage/fetchArticlesList',
         async (props, thunkApi) => {
             const { extra, rejectWithValue, getState } = thunkApi;
-            const page = getArticlesPageNum(getState());
             const limit = getArticlesPageLimit(getState());
             const sort = getArticlesPageSort(getState());
             const order = getArticlesPageOrder(getState());
             const search = getArticlesPageSearch(getState());
+            const page = getArticlesPageNum(getState());
             const type = getArticlesPageType(getState());
-            
 
             try {
                 addQueryParams({
-                    sort,
-                    order,
-                    search,
-                    type
+                    sort, order, search, type,
                 });
                 const response = await extra.api.get<Article[]>('/articles', {
                     params: {
@@ -42,7 +42,7 @@ export const fetchArticlesList = createAsyncThunk<
                         _sort: sort,
                         _order: order,
                         q: search,
-                        type:type===ArticleType.ALL ? undefined : type,
+                        type: type === ArticleType.ALL ? undefined : type,
                     },
                 });
 

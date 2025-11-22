@@ -1,10 +1,10 @@
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
+import { classNames } from 'shared/lib/classNames/classNames';
 import { HTMLAttributes, memo, ReactNode } from 'react';
 import cls from './Card.module.scss';
 
 export enum CardTheme {
     NORMAL = 'normal',
-    OUTLINE = 'outline',
+    OUTLINED = 'outlined',
 }
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,15 +14,13 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = memo((props: CardProps) => {
-    const { className, children, theme = CardTheme.NORMAL, ...otherProps } = props;
-
-    const mods: Mods = {
-        [cls[theme]]: true,
-    };
+    const {
+        className, children, theme = CardTheme.NORMAL, ...otherProps
+    } = props;
 
     return (
         <div
-            className={classNames(cls.Card, mods, [className])}
+            className={classNames(cls.Card, {}, [className, cls[theme]])}
             {...otherProps}
         >
             {children}
