@@ -23,6 +23,7 @@ import { articleDetailsRecommendationsReducer, getArticleRecommendations } from 
 import { getArticleRecommendationsIsLoading } from 'pages/ArticleDetailsPage/model/selectors/recomendation';
 import { fetchArticleRecommendation } from 'pages/ArticleDetailsPage/model/services/fetchArticleRecommendation/fetchArticleRecommendation';
 import { articleDetailsReducers } from 'pages/ArticleDetailsPage/model/slices';
+import { ArticleDetailsPageHeader } from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader';
 
 interface ArticleDetailsPageProps {
     className?: string;
@@ -67,9 +68,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
-                <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-                    {t('Назад к списку')}
-                </Button>
+                <ArticleDetailsPageHeader />
                 <ArticleDetails id={id} />
                 <Text className={cls.commentTitle} title={t('Рекомендации')} size={TextSize.L} />
                 <ArticleList target="_blank" className={cls.recommendationsList} articles={recommendations} isLoading={recommendationsIsLoading} />
